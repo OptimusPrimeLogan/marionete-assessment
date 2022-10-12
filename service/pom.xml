@@ -59,6 +59,17 @@
                         </exclude>
                     </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>install</phase>
+                        <configuration>
+                            <mainClass>com.marionete.assessment.MarioneteApplication</mainClass>
+                        </configuration>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -77,18 +88,46 @@
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
+                        <phase>install</phase>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>report</id>
-                        <phase>test</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>1.9.1</version>
+                <executions>
+                    <execution>
+                        <id>kubernetes</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>resource</goal>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution></executions>
+                <configuration>
+                    <images>
+                        <image>
+                            <name>marionete-assessment:${project.version}</name>
+                            <alias>marionete-assessment</alias>
+                            <build>
+                                <from>openjdk:11-jre-slim</from>
+                                <cmd>java -jar maven/${project.artifactId}-${project.version}.jar</cmd>
+                            </build>
+                        </image>
+                    </images>
+                </configuration>
             </plugin>
         </plugins>
     </build>
