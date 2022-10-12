@@ -20,7 +20,7 @@ import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-    private final String INVALID_INPUT = "Invalid Input";
+    private static final String INVALID_INPUT = "Invalid Input";
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
@@ -46,9 +46,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
         List<String> errors = new ArrayList<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            errors.add(error.getDefaultMessage());
-        });
+        ex.getBindingResult().getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(errors.toString());
         error.setStatus(INVALID_INPUT);
