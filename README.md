@@ -2,6 +2,12 @@
 ![My image](img/marionete_logo-1.svg)
 
 
+## Assignment Data
+
+```mvn clean install``` will build, test and generate JaCoCo code coverage reports.
+
+For future - Docker, Kubernetes and Gatling
+
 ## Description
 
 In this assignment we would like from you, to implement a simple platform that can communicate between different backends in Sync/Async way.
