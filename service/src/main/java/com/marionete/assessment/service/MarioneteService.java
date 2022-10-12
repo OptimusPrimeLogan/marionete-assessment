@@ -1,38 +1,30 @@
 package com.marionete.assessment.service;
 
-import com.marionete.assessment.exception.TokenException;
+import com.marionete.assessment.model.UserAccount;
 import com.marionete.assessment.model.UserCredential;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import services.LoginRequest;
-import services.LoginResponse;
-import services.LoginServiceGrpc;
+import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
 public class MarioneteService {
 
-    private LoginServiceGrpc.LoginServiceBlockingStub blockingStub;
-    public String getUserAccountDetails(UserCredential userCredential){
-        String token = "";
+    @Autowired
+    private LoginService loginService;
 
-        try{
-            LoginRequest loginRequest = LoginRequest.newBuilder()
-                    .setUsername(userCredential.getUsername())
-                    .setPassword(userCredential.getPassword()).build();
+    @Autowired
+    private AccountService accountService;
 
-            LoginResponse response = blockingStub.login(loginRequest);
-            token = response.getToken();
+    @Autowired
+    private UserService userService;
 
-        }catch (TokenException te){
-            te.printStackTrace();
-            log.error("Error generating token "+te.getMessage());
-            throw new TokenException(te.getMessage());
-        }
+    public Mono<UserAccount> getUserAccountDetails(UserCredential userCredential){
+        String token = loginService.getToken(userCredential);
 
-        log.info(token);
-
-        return token;
-
+        return userService.getUserDetails(token)
+                .zipWith(accountService.getAccountDetails(token),
+                        (user, account) -> UserAccount.builder().accountInfo(account).userInfo(user).build());
     }
 }
