@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 public class ExceptionResponse {
     private String status;
     private String message;

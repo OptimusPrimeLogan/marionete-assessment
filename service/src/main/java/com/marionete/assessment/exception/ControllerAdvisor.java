@@ -20,13 +20,15 @@ import java.util.List;
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
+    private final String INVALID_INPUT = "Invalid Input";
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody ExceptionResponse handleGenericException(Exception ex, WebRequest request) {
         ex.printStackTrace();
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(ex.getMessage());
-        error.setStatus("Invalid Input");
+        error.setStatus(INVALID_INPUT);
         return error;
     }
 
@@ -36,7 +38,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         ex.printStackTrace();
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(ex.getMessage());
-        error.setStatus("Invalid Input");
+        error.setStatus(INVALID_INPUT);
         return error;
     }
 
@@ -49,7 +51,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         });
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(errors.toString());
-        error.setStatus("Invalid Input");
+        error.setStatus(INVALID_INPUT);
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 }

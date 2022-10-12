@@ -26,10 +26,10 @@ public class LoginService extends LoginServiceGrpc.LoginServiceImplBase {
     private Server grpcServer;
 
     @Value("${grpc.service.host}")
-    private String grpcServiceHost;
+    protected String grpcServiceHost;
 
     @Value("${grpc.service.port}")
-    private Integer grpcServicePort;
+    protected Integer grpcServicePort;
 
     @Override
     public void login(LoginRequest request, StreamObserver<LoginResponse> responseObserver) {
@@ -48,7 +48,9 @@ public class LoginService extends LoginServiceGrpc.LoginServiceImplBase {
     public void startServer() {
         try {
             grpcServer = ServerBuilder.forPort(grpcServicePort).addService(new LoginService()).build();
-            grpcServer.start();
+            if(grpcServer.isShutdown()){
+                grpcServer.start();
+            }
 
             log.info("Login GRPC server is listening on port {}", grpcServicePort);
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {

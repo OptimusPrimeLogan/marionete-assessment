@@ -2,17 +2,14 @@ package com.marionete.assessment.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.marionete.assessment.model.Account;
 import com.marionete.assessment.model.User;
 import com.marionete.backends.UserInfoMock;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.server.ResponseStatusException;
 import reactor.core.publisher.Mono;
@@ -34,6 +31,12 @@ public class UserService {
     @Value("${user.details.uri}")
     private String detailsUri;
 
+    @Value("${wc.max.attempts:3}")
+    private long maxAttempts;
+
+    @Value("${wc.min.backoff:2}")
+    private long wcMinBackoff;
+
     public Mono<User> getUserDetails(String authToken){
 
         return WebClient.builder().baseUrl(userDetailsBaseUrl).build().get()
@@ -53,8 +56,8 @@ public class UserService {
                         throw new RuntimeException(e);
                     }
                 })
-                .retryWhen(Retry.backoff(3, Duration.ofSeconds(2))
-                .filter(throwable -> throwable instanceof ResponseStatusException));
+                .retryWhen(Retry.backoff(maxAttempts, Duration.ofSeconds(wcMinBackoff))
+                        .filter(ResponseStatusException.class::isInstance));
 
     }
 
