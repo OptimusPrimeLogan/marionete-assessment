@@ -102,7 +102,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
+         <!--   <plugin>
                 <groupId>org.eclipse.jkube</groupId>
                 <artifactId>kubernetes-maven-plugin</artifactId>
                 <version>1.9.1</version>
@@ -111,6 +111,7 @@
                         <id>kubernetes</id>
                         <phase>install</phase>
                         <goals>
+                            <goal>undeploy</goal>
                             <goal>build</goal>
                             <goal>resource</goal>
                             <goal>apply</goal>
@@ -127,8 +128,25 @@
                             </build>
                         </image>
                     </images>
+                    <enricher>
+                        <config>
+                            <jkube-service>
+                                <name>marionete-service</name>
+                                <type>LoadBalancer</type>
+                                <multiPort>true</multiPort>
+                            </jkube-service>
+                        </config>
+                    </enricher>
+                    <resources>
+                        <env>
+                            <grpc.service.host>0.0.0.0</grpc.service.host>
+                            <SPRING_PROFILES_ACTIVE>jkube</SPRING_PROFILES_ACTIVE>
+                            <user.details.base.url>http://0.0.0.0:8898</user.details.base.url>
+                            <account.details.base.url>http://0.0.0.0:8899</account.details.base.url>
+                        </env>
+                    </resources>
                 </configuration>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
     <dependencies>
