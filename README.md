@@ -4,7 +4,8 @@
 
 ## Assignment Data
 
-```mvn clean install``` will build, test and generate JaCoCo code coverage reports.
+```mvn clean install``` will build, test and generate JaCoCo code coverage reports under target/site/index.html
+```mvn clean spring-boot:run``` can run the application, Swagger Ui can be found - http://127.0.0.1:8080/api/swagger-ui.html
 
 For future - Docker, Kubernetes and Gatling
 
