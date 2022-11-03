@@ -1,7 +1,13 @@
 
 ![My image](img/marionete_logo-1.svg)
 
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment) 
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=bugs)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
+
 
 
 ## Assignment Data
