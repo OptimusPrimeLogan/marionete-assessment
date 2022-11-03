@@ -1,6 +1,8 @@
 
 ![My image](img/marionete_logo-1.svg)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=OptimusPrimeLogan_marionete-assessment&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=OptimusPrimeLogan_marionete-assessment)
+
 
 ## Assignment Data
 
