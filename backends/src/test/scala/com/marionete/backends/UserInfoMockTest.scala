@@ -3,9 +3,10 @@ package com.marionete.backends
 import com.twitter.finagle.http.{Request, Response, Status}
 import com.twitter.finagle.{Http, ListeningServer, Service, http}
 import com.twitter.util.Await
-import org.scalatest.{BeforeAndAfterAll, FeatureSpec, GivenWhenThen}
+import org.scalatest.{BeforeAndAfterAll, GivenWhenThen}
+import org.scalatest.featurespec.AnyFeatureSpec
 
-class UserInfoMockTest extends FeatureSpec with GivenWhenThen with BeforeAndAfterAll{
+class UserInfoMockTest extends AnyFeatureSpec with GivenWhenThen with BeforeAndAfterAll{
 
   var maybeServer: Option[ListeningServer] = None;
 
@@ -17,8 +18,8 @@ class UserInfoMockTest extends FeatureSpec with GivenWhenThen with BeforeAndAfte
     maybeServer.map(server => server.close())
   }
 
-  feature("[UserAccountMock] To ensure that is working as we expect") {
-    scenario("[UserAccountMock] We made a good request with Authentication in header and return result successfully") {
+  Feature("[UserAccountMock] To ensure that is working as we expect") {
+    Scenario("[UserAccountMock] We made a good request with Authentication in header and return result successfully") {
       Given("A [UserAccountMock] running and a Http client with Authentication header")
       val client: Service[Request, Response] = Http.newService("localhost:8898")
       When("When I made a request")
@@ -30,7 +31,7 @@ class UserInfoMockTest extends FeatureSpec with GivenWhenThen with BeforeAndAfte
       assert(response.status == Status.Ok)
     }
 
-    scenario("[UserAccountMock] We made a bad request without Authentication in header and return result Error") {
+    Scenario("[UserAccountMock] We made a bad request without Authentication in header and return result Error") {
       Given("A [UserAccountMock] running and a Http client without Authentication header")
       val client: Service[Request, Response] = Http.newService("localhost:8898")
       When("When I made a request")
@@ -41,7 +42,7 @@ class UserInfoMockTest extends FeatureSpec with GivenWhenThen with BeforeAndAfte
       assert(response.status == Status.InternalServerError)
     }
 
-    scenario("[UserAccountMock] We made a bad request with wrong endpoint and return result Error") {
+    Scenario("[UserAccountMock] We made a bad request with wrong endpoint and return result Error") {
       Given("A [UserAccountMock] running and a Http client without Authentication header")
       val client: Service[Request, Response] = Http.newService("localhost:8898")
       When("When I made a request")
