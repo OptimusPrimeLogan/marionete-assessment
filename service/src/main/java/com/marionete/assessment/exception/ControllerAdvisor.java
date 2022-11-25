@@ -25,7 +25,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody ExceptionResponse handleGenericException(Exception ex, WebRequest request) {
-        ex.printStackTrace();
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(ex.getMessage());
         error.setStatus(INVALID_INPUT);
@@ -35,7 +34,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(TokenException.class)
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public @ResponseBody ExceptionResponse handleTokenException(TokenException ex, WebRequest request) {
-        ex.printStackTrace();
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(ex.getMessage());
         error.setStatus(INVALID_INPUT);

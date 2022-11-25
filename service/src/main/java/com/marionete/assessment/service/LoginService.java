@@ -81,7 +81,6 @@ public class LoginService extends LoginServiceGrpc.LoginServiceImplBase {
             token = response.getToken();
 
         }catch (TokenException te){
-            te.printStackTrace();
             log.error("Error generating token "+te.getMessage());
             throw new TokenException(te.getMessage());
         }
