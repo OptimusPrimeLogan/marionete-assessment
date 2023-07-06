@@ -58,7 +58,9 @@ public class LoginService extends LoginServiceGrpc.LoginServiceImplBase {
                     try {
                         grpcServer.shutdown().awaitTermination(10, TimeUnit.SECONDS);
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        log.warn("Interrupted!", e);
+                        // Restore interrupted state...
+                        Thread.currentThread().interrupt();
                     }
                 }
             }));
