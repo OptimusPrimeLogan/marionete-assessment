@@ -14,7 +14,7 @@ public class gRPCConfig {
     private LoginService loginService;
 
     @Bean
-    public void loginServer() throws IOException {
+    public void loginServer() {
         loginService.startServer();
     }
 }

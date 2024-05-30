@@ -1,9 +1,11 @@
 package com.marionete.assessment.exception;
 
+import jakarta.annotation.Nullable;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -25,6 +27,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     public @ResponseBody ExceptionResponse handleGenericException(Exception ex, WebRequest request) {
+        //ex.printStackTrace();
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(ex.getMessage());
         error.setStatus(INVALID_INPUT);
@@ -42,12 +45,12 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
+                                                                  HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         List<String> errors = new ArrayList<>();
         ex.getBindingResult().getAllErrors().forEach(error -> errors.add(error.getDefaultMessage()));
         ExceptionResponse error = new ExceptionResponse();
         error.setMessage(errors.toString());
         error.setStatus(INVALID_INPUT);
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatusCode.valueOf(HttpStatus.BAD_REQUEST.value()));
     }
 }

@@ -48,7 +48,7 @@ public class AccountService {
                 .retrieve()
                 .onStatus(HttpStatus.TOO_MANY_REQUESTS::equals,
                         response -> Mono.error(new ResponseStatusException(response.statusCode())))
-                .onStatus(HttpStatus::is5xxServerError,
+                .onStatus(HttpStatus.INTERNAL_SERVER_ERROR::equals,
                         response -> Mono.error(new ResponseStatusException(response.statusCode())))
                 .bodyToMono(String.class)
                 .map(s -> {
