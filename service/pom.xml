@@ -18,7 +18,7 @@
         <jackson-databind.version>2.14.2</jackson-databind.version>
         <jackson-datatype-jsr310.version>2.14.2</jackson-datatype-jsr310.version>
         <springdoc-openapi-ui.version>1.6.15</springdoc-openapi-ui.version>
-        <swagger.version>2.2.8</swagger.version>
+        <swagger.version>2.2.35</swagger.version>
         <junit.version>5.9.0</junit.version>
         <!-- Sonar -->
         <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
@@ -169,7 +169,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.7</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -179,7 +179,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
-            <version>3.3.0</version>
+            <version>3.3.7</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
